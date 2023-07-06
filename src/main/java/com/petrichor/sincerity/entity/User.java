@@ -1,4 +1,4 @@
-package com.petrichor.sincerity.pojo;
+package com.petrichor.sincerity.entity;
 
 import lombok.Data;
 import org.springframework.stereotype.Component;
