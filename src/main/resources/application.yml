@@ -7,51 +7,13 @@ spring:
     url: jdbc:mysql://localhost:3306/sincerity
     username: root
     password: 123456
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+      password: 123456
 
 mybatis:
   mapper-locations:
     - classpath:/mapper/*.xml
 
-kaptcha:
-  border:
-    enabled: false
-    color: '200,200,200'
-    thickness: 1
-  noise:
-    color: '239,166,131'
-    impl:
-  obscurificator:
-    impl:
-  producer:
-    impl:
-  background:
-    impl:
-    color-from: '255,0,0'
-    color-to: '255,0,0'
-  text-producer:
-    impl:
-    character:
-      string: '01234567890ABCDEF'
-      length: 4
-      space: 10
-    font:
-      names:
-      color: '255,255,255'
-      size: 46
-  word:
-    impl:
-  image:
-    width: 200
-    height: 60
-  items:
-    home:
-      path: /home/captcha
-      session:
-        key: homeCaptcha
-        date: homeCaptchaDate
-      background:
-        color-from: '255,255,255'
-        color-to: '255,255,255'
-      text-producer:
-        font:
-          color: '68,155,44'

@@ -12,4 +12,5 @@ public class User {
     private String realname;
     private String phone;
     private long roleId;
+    private String avatar;
 }
