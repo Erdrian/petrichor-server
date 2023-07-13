@@ -14,7 +14,7 @@ public enum ResultCode implements IErrorCode {
     private final String message;
     private final boolean ok;
 
-    private ResultCode(long code, String message, boolean ok) {
+    ResultCode(long code, String message, boolean ok) {
         this.code = code;
         this.message = message;
         this.ok = ok;

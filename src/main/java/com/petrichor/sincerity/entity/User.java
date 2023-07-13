@@ -1,5 +1,6 @@
 package com.petrichor.sincerity.entity;
 
+import com.petrichor.sincerity.dto.UserInfo;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
