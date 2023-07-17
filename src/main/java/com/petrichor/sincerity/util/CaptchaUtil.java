@@ -3,6 +3,7 @@ package com.petrichor.sincerity.util;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 import javax.imageio.ImageIO;
@@ -11,7 +12,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 @Component
-public class CreateCaptcha {
+public class CaptchaUtil {
 
     @Autowired
     DefaultKaptcha getCaptcha;

@@ -17,3 +17,5 @@ mybatis:
   mapper-locations:
     - classpath:/mapper/*.xml
 
+token:
+  EX: 3600
