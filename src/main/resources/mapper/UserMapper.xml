@@ -2,6 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.petrichor.sincerity.mapper.UserMapper">
     <select id="getUserById" resultType="com.petrichor.sincerity.entity.User">
-        select * from user where id=#{id}
+        select * from sys_user where id=#{id}
     </select>
+    <select id="getUserList"
+            parameterType="com.petrichor.sincerity.dto.UserList"
+            resultType="com.petrichor.sincerity.dto.UserList"
+    >
+        select * from sys_user where del_flag=0
+        <if test="#{id} != null">
+            AND id = #{id}
+        </if>
+        <if test="#{username} != null">
+            AND username like concat('%',#{username},'%')
+        </if>
+    </select>
+
 </mapper>

@@ -16,6 +16,14 @@ spring:
 mybatis:
   mapper-locations:
     - classpath:/mapper/*.xml
+  configuration:
+
+
 
 token:
   EX: 3600
+
+pagehelper:
+  propertyName: propertyValue
+  reasonable: false
+  defaultCount: true

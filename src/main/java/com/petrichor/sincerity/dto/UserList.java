@@ -1,14 +1,11 @@
-package com.petrichor.sincerity.entity;
+package com.petrichor.sincerity.dto;
 
 import lombok.Data;
-import org.springframework.stereotype.Component;
 
 @Data
-@Component
-public class User {
+public class UserList  {
     private Long id;
     private String username;
-    private String password;
     private String realname;
     private String phone;
     private Long roleId;

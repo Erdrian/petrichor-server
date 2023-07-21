@@ -17,7 +17,6 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.net.http.HttpRequest;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
@@ -64,16 +63,16 @@ public class LoginController {
         if (!Objects.equals(redisTemplate.opsForValue().get(captchaKey), captcha)) {
             return CommonResult.failed("验证码错误");
         }
-        User user = userService.login(username, password);
-        if (user == null) {
+        User userList = userService.login(username, password);
+        if (userList == null) {
             return CommonResult.failed("账号或者密码错误");
         }
         String existToken = request.getHeader("X-Access-Token");
         if (!existToken.isEmpty()) {
             redisTemplate.delete(existToken);
         }
-        UserInfo userInfo = modelMapper.map(user, UserInfo.class);
-        String token = tokenUtil.getToken(user);
+        UserInfo userInfo = modelMapper.map(userList, UserInfo.class);
+        String token = tokenUtil.getToken(userList);
         LoginResult loginResult = new LoginResult();
         loginResult.setUserInfo(userInfo);
         loginResult.setToken(token);
