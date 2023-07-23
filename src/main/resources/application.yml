@@ -4,7 +4,7 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/sincerity
+    url: jdbc:mysql://localhost:3306/petrichor
     username: root
     password: 123456
   data:
@@ -13,17 +13,22 @@ spring:
       port: 6379
       password: 123456
 
+
+
 mybatis:
   mapper-locations:
     - classpath:/mapper/*.xml
-  configuration:
 
-
-
-token:
-  EX: 3600
 
 pagehelper:
-  propertyName: propertyValue
   reasonable: false
   defaultCount: true
+
+petrichor:
+  token:
+    ex: 3600
+
+logging:
+  level:
+    # noinspection undefined
+    com.petrichor.sincerity.mapper: DEBUG
