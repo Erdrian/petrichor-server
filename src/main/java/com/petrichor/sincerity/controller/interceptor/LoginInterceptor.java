@@ -1,23 +1,18 @@
 package com.petrichor.sincerity.controller.interceptor;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.petrichor.sincerity.api.CommonResult;
 import com.petrichor.sincerity.util.NotNeedLogin;
 import com.petrichor.sincerity.util.TokenUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
-import org.springframework.web.servlet.HandlerInterceptor;
-
-import java.io.PrintWriter;
-
+@Order(1)
 @Component
-public class LoginInterceptor implements HandlerInterceptor {
-    @Autowired
-    ObjectMapper mapper;
+public class LoginInterceptor extends BaseInterceptor {
+
     @Autowired
     TokenUtil tokenUtil;
     @Autowired
@@ -42,11 +37,7 @@ public class LoginInterceptor implements HandlerInterceptor {
                 if (tokenIsValid(token)) {
                     return true;
                 } else {
-                    response.setCharacterEncoding("utf-8");
-                    response.setContentType("application/json; charset=utf-8");
-                    PrintWriter writer = response.getWriter();
-                    String s = mapper.writeValueAsString(CommonResult.unauthorized(null));
-                    writer.write(s);
+                    unauthorized(response);
                     return false;
                 }
             }

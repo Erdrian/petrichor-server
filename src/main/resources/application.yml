@@ -12,13 +12,15 @@ spring:
       host: 127.0.0.1
       port: 6379
       password: 123456
-
-
+  output:
+    ansi:
+      enabled: ALWAYS
 
 mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
   mapper-locations:
     - classpath:/mapper/*.xml
-
 
 pagehelper:
   reasonable: false
@@ -28,7 +30,22 @@ petrichor:
   token:
     ex: 3600
 
+# noinspection undefined
+# noinspection PropertyRemoved
 logging:
+  file:
+    name: logs/spring.log
   level:
-    # noinspection undefined
+    root: INFO
     com.petrichor.sincerity.mapper: DEBUG
+  logback:
+    rollingpolicy:
+      file-name-pattern: ${LOG_FILE}.%d{yyyy-MM-dd}.%i.log
+      max-file-size: 1MB
+      max-history: 30
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} %clr(%-5level) [%thread] %logger{15} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} %-5level [%thread] %logger{15} - %msg%n"
+
+
+

@@ -2,6 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.petrichor.sincerity.mapper.LoginMapper">
     <select id="login" resultType="com.petrichor.sincerity.entity.User">
-        select * from sys_user where username=#{username} and password=#{password}
+        select * from sys_user where user_name=#{username} and password=#{password}
     </select>
 </mapper>

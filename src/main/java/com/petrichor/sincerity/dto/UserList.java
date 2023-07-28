@@ -8,8 +8,8 @@ import lombok.EqualsAndHashCode;
 @Data
 public class UserList extends BaseEntity {
     private Long id;
-    private String username;
-    private String realname;
+    private String userName;
+    private String realName;
     private String phone;
     private Long roleId;
     private String avatar;

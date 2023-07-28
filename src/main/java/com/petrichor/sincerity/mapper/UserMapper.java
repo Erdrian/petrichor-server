@@ -15,5 +15,9 @@ public interface UserMapper {
 
     List<UserList> getUserList(UserList userList);
 
-    Long addUser(User user);
+    Long insertUser(User user);
+
+    int deleteUser(@Param("id") Long id, @Param("updateBy") String updateBy);
+
+    int editUser(User user);
 }

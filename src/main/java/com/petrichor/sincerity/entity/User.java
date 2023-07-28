@@ -9,10 +9,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class User extends BaseEntity{
     private Long id;
-    private String username;
+    private String userName;
     private String password;
-    private String realname;
+    private String realName;
     private String phone;
     private Long roleId;
     private String avatar;
+    private String status;
 }

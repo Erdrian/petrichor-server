@@ -9,5 +9,4 @@ public class BaseEntity {
     private Date createTime;
     private String updateBy;
     private Date updateTime;
-
 }

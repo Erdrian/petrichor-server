@@ -2,9 +2,8 @@ package com.petrichor.sincerity.controller;
 
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.petrichor.sincerity.api.CommonResult;
-import com.petrichor.sincerity.dto.LoginParam;
+import com.petrichor.sincerity.dto.LoginBody;
 import com.petrichor.sincerity.dto.LoginResult;
-import com.petrichor.sincerity.dto.UserInfo;
 import com.petrichor.sincerity.entity.User;
 import com.petrichor.sincerity.service.LoginService;
 import com.petrichor.sincerity.util.CaptchaUtil;
@@ -55,24 +54,24 @@ public class LoginController {
     //登录
     @NotNeedLogin
     @PostMapping
-    public CommonResult<LoginResult> login(@RequestBody LoginParam loginParam, HttpServletRequest request) {
-        String captcha = loginParam.getCaptcha();
-        String captchaKey = loginParam.getCaptchaKey();
-        String username = loginParam.getUsername();
-        String password = loginParam.getPassword();
+    public CommonResult<LoginResult> login(@RequestBody LoginBody loginBody, HttpServletRequest request) {
+        String captcha = loginBody.getCaptcha();
+        String captchaKey = loginBody.getCaptchaKey();
+        String userName = loginBody.getUserName();
+        String password = loginBody.getPassword();
         if (!Objects.equals(redisTemplate.opsForValue().get(captchaKey), captcha)) {
             return CommonResult.failed("验证码错误");
         }
-        User userList = userService.login(username, password);
-        if (userList == null) {
+        User user = userService.login(userName, password);
+        if (user == null) {
             return CommonResult.failed("账号或者密码错误");
         }
         String existToken = request.getHeader("X-Access-Token");
         if (!existToken.isEmpty()) {
             redisTemplate.delete(existToken);
         }
-        UserInfo userInfo = modelMapper.map(userList, UserInfo.class);
-        String token = tokenUtil.getToken(userList);
+        LoginResult.UserInfo userInfo = modelMapper.map(user, LoginResult.UserInfo.class);
+        String token = tokenUtil.getToken(user);
         LoginResult loginResult = new LoginResult();
         loginResult.setUserInfo(userInfo);
         loginResult.setToken(token);

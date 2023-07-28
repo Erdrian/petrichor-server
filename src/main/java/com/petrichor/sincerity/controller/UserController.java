@@ -1,6 +1,5 @@
 package com.petrichor.sincerity.controller;
 
-import com.github.pagehelper.page.PageMethod;
 import com.petrichor.sincerity.api.CommonPage;
 import com.petrichor.sincerity.api.CommonResult;
 import com.petrichor.sincerity.dto.UserList;
@@ -13,31 +12,41 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/user")
-public class UserController {
+public class UserController extends BaseController {
     @Autowired
     UserService userService;
 
 
     @GetMapping("/list")
     public CommonResult<CommonPage<UserList>> getUserList(UserList param) {
-//        SecurityContextHolder
-        PageMethod.startPage(1, 10);
+        startPage();
         List<UserList> userList = userService.getUserList(param);
-        System.out.println(userList.size());
         return CommonResult.success(CommonPage.restPage(userList));
     }
 
     @PostMapping("/add")
-    public CommonResult<String> addUser(User user) {
-        User userByUserName = userService.getUserByUserName(user.getUsername());
-        if(userByUserName !=null){
-            return  CommonResult.failed("用户名已存在");
+    public CommonResult<Long> insertUser(@RequestBody User user) {
+        if (userService.getUserByUserName(user.getUserName()) != null) {
+            return CommonResult.failed("用户名已存在");
         }
-        User userByPhone = userService.getUserByPhone(user.getPhone());
-        if(userByPhone !=null){
-            return  CommonResult.failed("手机号已存在");
+        if (userService.getUserByPhone(user.getPhone()) != null) {
+            return CommonResult.failed("手机号已存在");
         }
-        return CommonResult.success("成功");
+        user.setCreateBy(getUserName());
+        userService.insertUser(user);
+        return CommonResult.success(user.getId());
     }
 
+    @PostMapping("/delete/{id}")
+    public CommonResult<String> deleteUser(@PathVariable Long id) {
+        userService.deleteUser(id, getUserName());
+        return CommonResult.success("删除成功");
+    }
+
+    @PostMapping("/edit")
+    public CommonResult<String> editUser(@RequestBody User user) {
+        user.setUpdateBy(getUserName());
+        userService.editUser(user);
+        return CommonResult.success("修改成功");
+    }
 }
