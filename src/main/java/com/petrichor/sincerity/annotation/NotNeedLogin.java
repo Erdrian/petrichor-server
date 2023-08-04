@@ -1,4 +1,4 @@
-package com.petrichor.sincerity.util;
+package com.petrichor.sincerity.annotation;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;

@@ -1,6 +1,6 @@
 package com.petrichor.sincerity.service;
 
-import com.petrichor.sincerity.entity.User;
+import com.petrichor.sincerity.entity.SysUser;
 import com.petrichor.sincerity.mapper.LoginMapper;
 import com.petrichor.sincerity.util.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,7 @@ public class LoginService {
     @Autowired
     LoginMapper loginMapper;
 
-    public User login(String username, String password) {
-        return loginMapper.login(username, SecurityUtils.digestPassword(password));
+    public SysUser login(String userName, String password) {
+        return loginMapper.login(userName, SecurityUtils.digestPassword(password));
     }
 }

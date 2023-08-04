@@ -1,22 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.petrichor.sincerity.mapper.UserMapper">
-    <insert id="insertUser"
-            useGeneratedKeys="true"
-            keyProperty="id"
-            keyColumn="id"
-            parameterType="com.petrichor.sincerity.entity.User">
+<mapper namespace="com.petrichor.sincerity.mapper.SysUserMapper">
+    <insert id="insertUser">
         insert into sys_user
-        (user_name, password, real_name, phone, role_id, avatar, create_time, create_by)
+        (id, user_name, password, real_name, phone, avatar, create_time, create_by)
         values
-        (#{username}, #{password}, #{realname}, #{phone}, #{roleId}, #{avatar}, NOW(), #{createBy})
+        (#{id}, #{userName}, #{password}, #{realName}, #{phone}, #{avatar}, NOW(), #{createBy})
     </insert>
 
     <update id="editUser">
         update sys_user set
-        real_name=#{realname},
+        real_name=#{realName},
         phone=#{phone},
-        role_id=#{roleId},
         update_time=NOW(),
         update_by=#{updateBy}
         where id = #{id}
@@ -30,11 +25,11 @@
         where id = #{id}
     </delete>
 
-    <select id="getUserById" resultType="com.petrichor.sincerity.entity.User">
+    <select id="getUserById" resultType="com.petrichor.sincerity.entity.SysUser">
         select * from sys_user where id=#{id}
     </select>
 
-    <select id="getUserList" resultType="com.petrichor.sincerity.dto.UserList">
+    <select id="getUserList" resultType="com.petrichor.sincerity.dto.SysUserList">
         select * from sys_user where del_flag=0
         <if test="id!=null">
             AND id = #{id}
@@ -44,11 +39,11 @@
         </if>
     </select>
 
-    <select id="getUserByUserName" resultType="com.petrichor.sincerity.entity.User">
+    <select id="getUserByUserName" resultType="com.petrichor.sincerity.entity.SysUser">
         select * from sys_user where del_flag=0 and user_name=#{userName} limit 1
     </select>
 
-    <select id="getUserByPhone" resultType="com.petrichor.sincerity.entity.User">
+    <select id="getUserByPhone" resultType="com.petrichor.sincerity.entity.SysUser">
         select * from sys_user where del_flag=0 and phone=#{phone} limit 1
     </select>
 

@@ -1,6 +1,6 @@
 package com.petrichor.sincerity.controller.interceptor;
 
-import com.petrichor.sincerity.util.NotNeedLogin;
+import com.petrichor.sincerity.annotation.NotNeedLogin;
 import com.petrichor.sincerity.util.TokenUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

@@ -1,6 +1,5 @@
 package com.petrichor.sincerity.util;
 
-import com.petrichor.sincerity.entity.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.context.request.RequestContextHolder;

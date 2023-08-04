@@ -4,10 +4,10 @@ import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.petrichor.sincerity.api.CommonResult;
 import com.petrichor.sincerity.dto.LoginBody;
 import com.petrichor.sincerity.dto.LoginResult;
-import com.petrichor.sincerity.entity.User;
+import com.petrichor.sincerity.entity.SysUser;
 import com.petrichor.sincerity.service.LoginService;
 import com.petrichor.sincerity.util.CaptchaUtil;
-import com.petrichor.sincerity.util.NotNeedLogin;
+import com.petrichor.sincerity.annotation.NotNeedLogin;
 import com.petrichor.sincerity.util.TokenUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import org.modelmapper.ModelMapper;
@@ -62,16 +62,16 @@ public class LoginController {
         if (!Objects.equals(redisTemplate.opsForValue().get(captchaKey), captcha)) {
             return CommonResult.failed("验证码错误");
         }
-        User user = userService.login(userName, password);
-        if (user == null) {
+        SysUser sysUser = userService.login(userName, password);
+        if (sysUser == null) {
             return CommonResult.failed("账号或者密码错误");
         }
         String existToken = request.getHeader("X-Access-Token");
         if (!existToken.isEmpty()) {
             redisTemplate.delete(existToken);
         }
-        LoginResult.UserInfo userInfo = modelMapper.map(user, LoginResult.UserInfo.class);
-        String token = tokenUtil.getToken(user);
+        LoginResult.UserInfo userInfo = modelMapper.map(sysUser, LoginResult.UserInfo.class);
+        String token = tokenUtil.getToken(sysUser);
         LoginResult loginResult = new LoginResult();
         loginResult.setUserInfo(userInfo);
         loginResult.setToken(token);

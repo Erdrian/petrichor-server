@@ -16,12 +16,32 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/`petrichor` /*!40100 DEFAULT CHARACTER S
 
 USE `petrichor`;
 
+/*Table structure for table `sys_role` */
+
+DROP TABLE IF EXISTS `sys_role`;
+
+CREATE TABLE `sys_role` (
+  `id` bigint NOT NULL,
+  `role_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `create_by` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `update_by` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  `del_flag` char(1) COLLATE utf8mb4_general_ci DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*Data for the table `sys_role` */
+
+insert  into `sys_role`(`id`,`role_name`,`create_by`,`create_time`,`update_by`,`update_time`,`del_flag`) values 
+(475348849087483904,'管理员','admin','2023-08-04 17:06:37','admin','2023-08-04 17:06:54','0');
+
 /*Table structure for table `sys_user` */
 
 DROP TABLE IF EXISTS `sys_user`;
 
 CREATE TABLE `sys_user` (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '用户ID',
+  `id` bigint NOT NULL COMMENT '用户ID',
   `user_name` varchar(30) COLLATE utf8mb4_general_ci NOT NULL COMMENT '用户账号',
   `real_name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '用户昵称',
   `user_type` varchar(2) COLLATE utf8mb4_general_ci DEFAULT '00' COMMENT '用户类型（00系统用户）',
@@ -37,12 +57,13 @@ CREATE TABLE `sys_user` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户信息表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户信息表';
 
 /*Data for the table `sys_user` */
 
 insert  into `sys_user`(`id`,`user_name`,`real_name`,`user_type`,`email`,`phone`,`avatar`,`password`,`status`,`del_flag`,`create_by`,`create_time`,`update_by`,`update_time`,`remark`) values 
-(1,'admin','浅醉','00','ry@163.com','15888888888','','e10adc3949ba59abbe56e057f20f883e','0','0','admin','2023-07-27 10:04:51','',NULL,'管理员');
+(1,'admin','浅醉','00','ry@163.com','15888888888','','e10adc3949ba59abbe56e057f20f883e','0','0','admin','2023-07-27 10:04:51','',NULL,'管理员'),
+(475331536627986432,'cefas','123','00','','123',NULL,'b09da03ffbe1f055c7354c59305f0009','0','2','admin','2023-08-04 15:57:49','admin','2023-08-04 16:21:46',NULL);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

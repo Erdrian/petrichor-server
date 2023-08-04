@@ -13,7 +13,6 @@ public class SecurityUtils {
     public final static String MD5 = "MD5";
     public final static String NONE = "NONE";
     public final static String SHA_256 = "SHA-256";
-    public final static String SHA_512 = "SHA-512";
     public final static String SHA_384 = "SHA-384";
 
     /**
@@ -76,10 +75,8 @@ public class SecurityUtils {
             newPass = DigestUtils.sha256Hex(password);
         } else if (SHA_384.equals(alg)) {
             newPass = DigestUtils.sha384Hex(password);
-        } else if (SHA_512.equals(alg)) {
-            newPass = DigestUtils.sha512Hex(password);
         } else {
-            newPass = DigestUtils.shaHex(password);
+            newPass = DigestUtils.sha512Hex(password);
         }
         return newPass;
     }
