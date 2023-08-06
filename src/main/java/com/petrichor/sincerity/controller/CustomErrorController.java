@@ -12,4 +12,3 @@ public class CustomErrorController implements ErrorController {
         return CommonResult.failed(ResultCode.VALIDATE_FAILED);
     }
 }
-

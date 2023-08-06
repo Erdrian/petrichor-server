@@ -1,13 +1,10 @@
 package com.petrichor.sincerity.aop;
 
-import com.petrichor.sincerity.util.LoggerUtils;
 import com.petrichor.sincerity.util.SnowflakeIdWorker;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
-import org.slf4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Field;
@@ -16,9 +13,6 @@ import java.lang.reflect.Field;
 @Aspect
 @Component
 public class SnowFlakeAop {
-    @Autowired
-    LoggerUtils loggerUtils;
-
 
     SnowflakeIdWorker snowflakeIdWorker = new SnowflakeIdWorker(1);
 

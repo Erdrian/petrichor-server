@@ -10,17 +10,17 @@ public enum ResultCode implements IErrorCode {
     VALIDATE_FAILED(404, "请检查接口地址和请求参数", false),
     UNAUTHORIZED(401, "暂未登录或token已经过期", false),
     FORBIDDEN(403, "没有相关权限", false);
-    private final long code;
+    private final Integer code;
     private final String message;
     private final boolean ok;
 
-    ResultCode(long code, String message, boolean ok) {
+    ResultCode(Integer code, String message, boolean ok) {
         this.code = code;
         this.message = message;
         this.ok = ok;
     }
 
-    public long getCode() {
+    public Integer getCode() {
         return code;
     }
 

@@ -13,7 +13,7 @@ public class CommonResult<T> {
     /**
      * 状态码
      */
-    private long code;
+    private Integer code;
     /**
      * 提示信息
      */
@@ -30,7 +30,7 @@ public class CommonResult<T> {
     protected CommonResult() {
     }
 
-    protected CommonResult(long code, String msg, boolean ok, T data) {
+    protected CommonResult(Integer code, String msg, boolean ok, T data) {
         this.code = code;
         this.msg = msg;
         this.result = data;
@@ -122,11 +122,11 @@ public class CommonResult<T> {
         return new CommonResult<>(ResultCode.FORBIDDEN.getCode(), ResultCode.FORBIDDEN.getMessage(), ResultCode.FORBIDDEN.getOk(), data);
     }
 
-    public long getCode() {
+    public Integer getCode() {
         return code;
     }
 
-    public void setCode(long code) {
+    public void setCode(Integer code) {
         this.code = code;
     }
 
