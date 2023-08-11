@@ -28,6 +28,11 @@ public class SysRoleService implements SysRoleMapper {
         return sysRoleMapper.getRoleList(sysRole);
     }
 
+    @Override
+    public List<SysRole> getRoleList() {
+        return sysRoleMapper.getRoleList();
+    }
+
     @SnowFlakeId
     @Override
     public Long insertRole(SysRole sysRole) {
@@ -42,5 +47,21 @@ public class SysRoleService implements SysRoleMapper {
     @Override
     public int editRole(SysRole sysRole) {
         return sysRoleMapper.editRole(sysRole);
+    }
+
+    @Override
+    public int roleLinkPermission(Long roleId, List<Long> permissionId) {
+        roleUnLinkPermission(roleId);
+        return sysRoleMapper.roleLinkPermission(roleId, permissionId);
+    }
+
+    @Override
+    public int roleUnLinkPermission(Long roleId) {
+        return sysRoleMapper.roleUnLinkPermission(roleId);
+    }
+
+    @Override
+    public List<Long> getRolePermissions(Long roleId) {
+        return sysRoleMapper.getRolePermissions(roleId);
     }
 }

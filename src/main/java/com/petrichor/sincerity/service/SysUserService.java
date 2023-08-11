@@ -2,6 +2,8 @@ package com.petrichor.sincerity.service;
 
 import com.petrichor.sincerity.annotation.SnowFlakeId;
 import com.petrichor.sincerity.dto.SysUserList;
+import com.petrichor.sincerity.dto.SysUserRole;
+import com.petrichor.sincerity.entity.SysPermission;
 import com.petrichor.sincerity.entity.SysUser;
 import com.petrichor.sincerity.mapper.SysUserMapper;
 import com.petrichor.sincerity.util.SecurityUtils;
@@ -39,18 +41,41 @@ public class SysUserService implements SysUserMapper {
     @Override
     public Long insertUser(SysUser sysUser) {
         sysUser.setPassword(SecurityUtils.digestPassword(sysUser.getPassword()));
-        System.out.println(sysUser);
+        userLinkRoles(sysUser.getId(), sysUser.getRoleIds());
         return sysUserMapper.insertUser(sysUser);
     }
 
     @Override
     public int deleteUser(Long id, String updateBy) {
+        userUnlinkRoles(id);
         return sysUserMapper.deleteUser(id, updateBy);
     }
 
     @Override
     public int editUser(SysUser sysUser) {
+        userLinkRoles(sysUser.getId(), sysUser.getRoleIds());
         return sysUserMapper.editUser(sysUser);
+    }
+
+    @Override
+    public int userLinkRoles(Long userId, List<Long> roleIds) {
+        userUnlinkRoles(userId);
+        return sysUserMapper.userLinkRoles(userId, roleIds);
+    }
+
+    @Override
+    public int userUnlinkRoles(Long userId) {
+        return sysUserMapper.userUnlinkRoles(userId);
+    }
+
+    @Override
+    public List<SysPermission> getUserPermissions(Long userId) {
+        return sysUserMapper.getUserPermissions(userId);
+    }
+
+    @Override
+    public List<SysUserRole> getUserRoleIdsByUserIds(List<Long> userIds) {
+        return sysUserMapper.getUserRoleIdsByUserIds(userIds);
     }
 
 }

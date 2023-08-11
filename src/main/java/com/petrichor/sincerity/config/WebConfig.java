@@ -1,5 +1,6 @@
 package com.petrichor.sincerity.config;
 
+import com.petrichor.sincerity.controller.interceptor.AuthorizeInterceptor;
 import com.petrichor.sincerity.controller.interceptor.LoginInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -12,6 +13,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebConfig {
     @Autowired
     LoginInterceptor loginInterceptor;
+    @Autowired
+    AuthorizeInterceptor authorizeInterceptor;
 
     @Bean
     public WebMvcConfigurer corsConfigurer() {
@@ -29,6 +32,7 @@ public class WebConfig {
             @Override
             public void addInterceptors(InterceptorRegistry registry) {
                 registry.addInterceptor(loginInterceptor).addPathPatterns("/api/**");
+                registry.addInterceptor(authorizeInterceptor).addPathPatterns("/api/**");
             }
         };
     }

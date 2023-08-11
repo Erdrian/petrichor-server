@@ -1,4 +1,4 @@
-package com.petrichor.sincerity.aop;
+package com.petrichor.sincerity.aspect;
 
 import com.petrichor.sincerity.util.SnowflakeIdWorker;
 import org.aspectj.lang.JoinPoint;
@@ -9,7 +9,9 @@ import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Field;
 
-
+/**
+* 在标记了SnowFlake注解的方法下，给目标插入雪花id
+* */
 @Aspect
 @Component
 public class SnowFlakeAop {

@@ -1,6 +1,8 @@
 package com.petrichor.sincerity.mapper;
 
 import com.petrichor.sincerity.dto.SysUserList;
+import com.petrichor.sincerity.dto.SysUserRole;
+import com.petrichor.sincerity.entity.SysPermission;
 import com.petrichor.sincerity.entity.SysUser;
 import org.apache.ibatis.annotations.Param;
 
@@ -20,4 +22,12 @@ public interface SysUserMapper {
     int deleteUser(@Param("id") Long id, @Param("updateBy") String updateBy);
 
     int editUser(SysUser sysUser);
+
+    int userLinkRoles(@Param("userId") Long userId, @Param("roleIds") List<Long> roleIds);
+
+    int userUnlinkRoles(@Param("userId") Long userId);
+
+    List<SysPermission> getUserPermissions(@Param("userId") Long userId);
+
+    List<SysUserRole> getUserRoleIdsByUserIds(@Param("userIds") List<Long> userIds);
 }

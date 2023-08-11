@@ -31,4 +31,8 @@ public class TokenUtil {
     public void resetTokenEXTime(String key) {
         redisTemplate.opsForValue().getAndExpire(key, this.ex, TimeUnit.SECONDS);
     }
+
+    public Object get(String key) {
+        return redisTemplate.opsForValue().get(key);
+    }
 }

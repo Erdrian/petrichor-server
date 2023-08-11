@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class LoggerUtils {
-    public Logger getLogger() {
-        return LoggerFactory.getLogger(getClass());
+    public Logger getLogger(Class<?> clazz) {
+        return LoggerFactory.getLogger(clazz);
     }
 }

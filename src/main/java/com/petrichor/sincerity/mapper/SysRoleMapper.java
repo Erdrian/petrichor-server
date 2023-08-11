@@ -12,9 +12,17 @@ public interface SysRoleMapper {
 
     List<SysRole> getRoleList(SysRole sysRole);
 
+    List<SysRole> getRoleList();
+
     Long insertRole(SysRole sysRole);
 
     int deleteRole(@Param("id") Long id, @Param("updateBy") String updateBy);
 
     int editRole(SysRole sysRole);
+
+    int roleLinkPermission(@Param("roleId") Long roleId, @Param("permissionId") List<Long> permissionId);
+
+    int roleUnLinkPermission(@Param("roleId") Long roleId);
+
+    List<Long> getRolePermissions(Long roleId);
 }

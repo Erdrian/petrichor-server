@@ -7,6 +7,7 @@ import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Retention(RUNTIME)
-@Target(METHOD)
-public @interface SnowFlakeId {
+@Target({METHOD})
+public @interface NeedAuthority {
+    String value() default "";
 }

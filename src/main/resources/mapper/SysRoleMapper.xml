@@ -7,6 +7,13 @@
         values
         (#{id}, #{roleName}, NOW(), #{createBy})
     </insert>
+    <insert id="roleLinkPermission">
+        insert into sys_role_permission(role_id, permission_id)
+        values
+        <foreach collection="permissionId" item="pId" separator=",">
+            (#{roleId},#{pId})
+        </foreach>
+    </insert>
     <update id="deleteRole">
         update sys_role set
         del_flag = '2',
@@ -21,6 +28,9 @@
         update_by=#{updateBy}
         where id = #{id}
     </update>
+    <delete id="roleUnLinkPermission">
+        delete from sys_role_permission where role_id = #{roleId}
+    </delete>
     <select id="getRoleById" resultType="com.petrichor.sincerity.entity.SysRole">
         select * from sys_role where id=#{id}
     </select>
@@ -35,5 +45,8 @@
     </select>
     <select id="getRoleByRoleName" resultType="com.petrichor.sincerity.entity.SysRole">
         select * from sys_role where del_flag=0 and role_name=#{roleName}
+    </select>
+    <select id="getRolePermissions" resultType="long">
+        select permission_id from sys_role_permission where role_id = #{roleId}
     </select>
 </mapper>

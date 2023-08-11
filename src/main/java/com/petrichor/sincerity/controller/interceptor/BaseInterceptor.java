@@ -1,10 +1,11 @@
 package com.petrichor.sincerity.controller.interceptor;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.petrichor.sincerity.api.CommonResult;
+import com.petrichor.sincerity.util.TokenUtil;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import java.io.IOException;
@@ -13,6 +14,10 @@ import java.io.PrintWriter;
 public class BaseInterceptor implements HandlerInterceptor {
     @Autowired
     ObjectMapper mapper;
+    @Autowired
+    TokenUtil tokenUtil;
+    @Autowired
+    RedisTemplate<Object, Object> redisTemplate;
 
     public void unauthorized(HttpServletResponse response) throws IOException {
         String s = mapper.writeValueAsString(CommonResult.unauthorized(null));

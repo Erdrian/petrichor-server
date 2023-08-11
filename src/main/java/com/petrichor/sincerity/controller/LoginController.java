@@ -4,8 +4,11 @@ import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.petrichor.sincerity.api.CommonResult;
 import com.petrichor.sincerity.dto.LoginBody;
 import com.petrichor.sincerity.dto.LoginResult;
+import com.petrichor.sincerity.entity.SysPermission;
 import com.petrichor.sincerity.entity.SysUser;
 import com.petrichor.sincerity.service.LoginService;
+import com.petrichor.sincerity.service.SysPermissionService;
+import com.petrichor.sincerity.service.SysUserService;
 import com.petrichor.sincerity.util.CaptchaUtil;
 import com.petrichor.sincerity.annotation.NotNeedLogin;
 import com.petrichor.sincerity.util.TokenUtil;
@@ -16,6 +19,8 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
@@ -29,11 +34,15 @@ public class LoginController {
     @Autowired
     RedisTemplate<Object, Object> redisTemplate;
     @Autowired
-    LoginService userService;
+    LoginService loginService;
     @Autowired
     TokenUtil tokenUtil;
     @Autowired
     ModelMapper modelMapper;
+    @Autowired
+    SysUserService sysUserService;
+    @Autowired
+    SysPermissionService sysPermissionService;
 
     //验证码
     @GetMapping("/getCaptcha")
@@ -62,7 +71,7 @@ public class LoginController {
         if (!Objects.equals(redisTemplate.opsForValue().get(captchaKey), captcha)) {
             return CommonResult.failed("验证码错误");
         }
-        SysUser sysUser = userService.login(userName, password);
+        SysUser sysUser = loginService.login(userName, password);
         if (sysUser == null) {
             return CommonResult.failed("账号或者密码错误");
         }
@@ -70,11 +79,34 @@ public class LoginController {
         if (!existToken.isEmpty()) {
             redisTemplate.delete(existToken);
         }
+        return CommonResult.success(getLoginResult(sysUser));
+    }
+
+    public List<String> getAuthorizes(List<SysPermission> sysPermissions) {
+        ArrayList<String> arrayList = new ArrayList<>();
+        for (SysPermission sysPermission : sysPermissions) {
+            String authority = sysPermission.getAuthority();
+            if (authority!=null && !authority.isEmpty()) {
+                arrayList.add(authority);
+            }
+        }
+        return arrayList;
+    }
+
+    public List<SysPermission> getNavigation(List<SysPermission> sysPermissions) {
+        List<SysPermission> permissions = sysPermissions.stream().filter(SysPermission::isNavigation).toList();
+        return sysPermissionService.getPermissionTree(permissions);
+    }
+
+    public LoginResult getLoginResult(SysUser sysUser) {
+        List<SysPermission> userPermissions = sysUserService.getUserPermissions(sysUser.getId());
         LoginResult.UserInfo userInfo = modelMapper.map(sysUser, LoginResult.UserInfo.class);
-        String token = tokenUtil.getToken(sysUser);
         LoginResult loginResult = new LoginResult();
         loginResult.setUserInfo(userInfo);
+        loginResult.setAuthorizes(getAuthorizes(userPermissions));
+        loginResult.setNavigation(getNavigation(userPermissions));
+        String token = tokenUtil.getToken(loginResult);
         loginResult.setToken(token);
-        return CommonResult.success(loginResult);
+        return loginResult;
     }
 }
