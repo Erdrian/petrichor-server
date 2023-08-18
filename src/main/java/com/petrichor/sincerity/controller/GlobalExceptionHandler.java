@@ -21,20 +21,19 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(SQLException.class)
     public CommonResult<String> sqlException(Exception e) {
         Logger logger = getLogger(e.getClass());
-        String message = e.getMessage();
-        String cause = e.getCause().toString();
-        String reason = cause.substring(cause.indexOf(":") + 1);
-        logger.error("cause" + cause, "message" + message);
-        return CommonResult.failed("数据库错误：" + reason);
+        logger.error(String.valueOf(e));
+        return CommonResult.failed("数据库错误：" + getReason(e));
     }
 
     @ExceptionHandler(Exception.class)
     public CommonResult<String> otherException(Exception e) {
         Logger logger = getLogger(e.getClass());
-        String message = e.getMessage();
-        String cause = e.getCause().toString();
-        String reason = cause.substring(cause.indexOf(":") + 1);
-        logger.error("cause" + cause, "message" + message);
-        return CommonResult.failed("服务器内部错误：" + reason);
+        logger.error(String.valueOf(e));
+        return CommonResult.failed("服务器内部错误：" + getReason(e));
+    }
+
+    public String getReason(Exception e) {
+        String cause = String.valueOf(e.getCause());
+        return cause.substring(cause.indexOf(":") + 1);
     }
 }

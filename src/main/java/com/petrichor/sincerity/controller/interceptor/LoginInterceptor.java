@@ -14,20 +14,9 @@ public class LoginInterceptor extends BaseInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         if (handler instanceof HandlerMethod h) {
             boolean annotationPresent = h.getMethod().isAnnotationPresent(NotNeedLogin.class);
-            if (annotationPresent) {
-                return true;
-            } else {
-                String token = request.getHeader("X-Access-Token");
-                if (tokenIsValid(token)) {
-                    return true;
-                } else {
-                    unauthorized(response);
-                    return false;
-                }
-            }
-        } else {
-            return true;
+            return annotationPresent || tokenIsValid(getToken()) || unauthorized();
         }
+        return true;
     }
 
     private boolean tokenIsValid(String token) {

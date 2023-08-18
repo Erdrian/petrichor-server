@@ -1,7 +1,7 @@
 package com.petrichor.sincerity.controller.interceptor;
 
 import com.petrichor.sincerity.annotation.NeedAuthority;
-import com.petrichor.sincerity.dto.LoginResult;
+import com.petrichor.sincerity.model.LoginResult;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.core.annotation.Order;
@@ -16,23 +16,14 @@ public class AuthorizeInterceptor extends BaseInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         if (handler instanceof HandlerMethod h) {
+            String authority = "";
             boolean annotationPresent = h.getMethod().isAnnotationPresent(NeedAuthority.class);
-            if (!annotationPresent) {
-                return true;
-            } else {
-                String token = request.getHeader("X-Access-Token");
-                String authority = Objects.requireNonNull(h.getMethodAnnotation(NeedAuthority.class)).value();
-                if (hasAuthority(token, authority)) {
-                    return true;
-                } else {
-                    forbidden(response);
-                    return false;
-                }
-
+            if (annotationPresent) {
+                authority = Objects.requireNonNull(h.getMethodAnnotation(NeedAuthority.class)).value();
             }
-        } else {
-            return true;
+            return !annotationPresent || hasAuthority(getToken(), authority) || forbidden();
         }
+        return true;
     }
 
     public boolean hasAuthority(String token, String authority) {

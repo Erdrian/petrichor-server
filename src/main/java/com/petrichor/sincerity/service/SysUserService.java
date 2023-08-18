@@ -1,8 +1,8 @@
 package com.petrichor.sincerity.service;
 
 import com.petrichor.sincerity.annotation.SnowFlakeId;
-import com.petrichor.sincerity.dto.SysUserList;
-import com.petrichor.sincerity.dto.SysUserRole;
+import com.petrichor.sincerity.model.SysUserList;
+import com.petrichor.sincerity.model.SysUserRole;
 import com.petrichor.sincerity.entity.SysPermission;
 import com.petrichor.sincerity.entity.SysUser;
 import com.petrichor.sincerity.mapper.SysUserMapper;
@@ -69,8 +69,8 @@ public class SysUserService implements SysUserMapper {
     }
 
     @Override
-    public List<SysPermission> getUserPermissions(Long userId) {
-        return sysUserMapper.getUserPermissions(userId);
+    public List<SysPermission> getUserPermissionsByUserId(Long userId) {
+        return sysUserMapper.getUserPermissionsByUserId(userId);
     }
 
     @Override

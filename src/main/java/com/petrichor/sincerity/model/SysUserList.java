@@ -1,4 +1,4 @@
-package com.petrichor.sincerity.dto;
+package com.petrichor.sincerity.model;
 
 import com.petrichor.sincerity.entity.BaseEntity;
 import com.petrichor.sincerity.entity.SysRole;

@@ -1,7 +1,7 @@
 package com.petrichor.sincerity.mapper;
 
-import com.petrichor.sincerity.dto.SysUserList;
-import com.petrichor.sincerity.dto.SysUserRole;
+import com.petrichor.sincerity.model.SysUserList;
+import com.petrichor.sincerity.model.SysUserRole;
 import com.petrichor.sincerity.entity.SysPermission;
 import com.petrichor.sincerity.entity.SysUser;
 import org.apache.ibatis.annotations.Param;
@@ -27,7 +27,7 @@ public interface SysUserMapper {
 
     int userUnlinkRoles(@Param("userId") Long userId);
 
-    List<SysPermission> getUserPermissions(@Param("userId") Long userId);
+    List<SysPermission> getUserPermissionsByUserId(@Param("userId") Long userId);
 
     List<SysUserRole> getUserRoleIdsByUserIds(@Param("userIds") List<Long> userIds);
 }

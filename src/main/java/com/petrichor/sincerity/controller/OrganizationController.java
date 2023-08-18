@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class OrganizationController {
-    @GetMapping("/api/organizationValid")
+    @GetMapping("api/organizationValid")
     public CommonResult<Boolean> isOrganizationCodeUtilValid(@RequestParam String code) {
         return CommonResult.success(OrganizationCodeUtil.isValidSocialCreditCode(code));
     }

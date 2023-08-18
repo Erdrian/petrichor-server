@@ -15,5 +15,4 @@ public interface IErrorCode {
      */
     String getMessage();
 
-    boolean getOk();
 }

@@ -3,8 +3,8 @@ package com.petrichor.sincerity.controller;
 import com.petrichor.sincerity.annotation.NeedAuthority;
 import com.petrichor.sincerity.api.CommonPage;
 import com.petrichor.sincerity.api.CommonResult;
-import com.petrichor.sincerity.dto.SysUserList;
-import com.petrichor.sincerity.dto.SysUserRole;
+import com.petrichor.sincerity.model.SysUserList;
+import com.petrichor.sincerity.model.SysUserRole;
 import com.petrichor.sincerity.entity.SysRole;
 import com.petrichor.sincerity.entity.SysUser;
 import com.petrichor.sincerity.service.SysRoleService;
@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/user")
@@ -25,14 +24,14 @@ public class SysUserController extends BaseController {
     SysRoleService sysRoleService;
 
     @NeedAuthority("permission:user-list")
-    @GetMapping("/list")
+    @GetMapping("list")
     public CommonResult<CommonPage<SysUserList>> getUserList(SysUserList param) {
         startPage();
         List<SysUserList> sysUserList = sysUserService.getUserList(param);
-        return CommonPage.restPage(setUserRoles(sysUserList));
+        return CommonPage.restPage(!sysUserList.isEmpty() ? setUserRoles(sysUserList) : sysUserList);
     }
 
-    @PostMapping("/add")
+    @PostMapping("add")
     public CommonResult<Long> insertUser(@RequestBody SysUser sysUser) {
         if (sysUserService.getUserByUserName(sysUser.getUserName()) != null) {
             return CommonResult.failed("用户名已存在");
@@ -47,7 +46,7 @@ public class SysUserController extends BaseController {
         return CommonResult.success(id);
     }
 
-    @PostMapping("/delete/{id}")
+    @PostMapping("delete/{id}")
     public CommonResult<String> deleteUser(@PathVariable Long id) {
         if (id == null) {
             return CommonResult.failed("删除对象不存在");
@@ -56,7 +55,7 @@ public class SysUserController extends BaseController {
         return CommonResult.success("删除成功");
     }
 
-    @PostMapping("/edit")
+    @PostMapping("edit")
     public CommonResult<String> editUser(@RequestBody SysUser sysUser) {
         sysUser.setUpdateBy(getUserName());
         sysUserService.editUser(sysUser);
@@ -68,6 +67,8 @@ public class SysUserController extends BaseController {
     }
 
     public List<SysUserList> setUserRoles(List<SysUserList> userList) {
+        if (userList.isEmpty()) return userList;
+
         List<SysRole> roleList = sysRoleService.getRoleList();
 
         List<Long> userIds = userList.stream().map(SysUserList::getId).toList();

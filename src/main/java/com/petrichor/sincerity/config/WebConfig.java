@@ -23,7 +23,10 @@ public class WebConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/api/**")
-                        .allowedOrigins("http://localhost:8088", "http://192.168.86.122:8088")
+                        .allowedOrigins("http://localhost:8088",
+                                        "http://192.168.86.122:8088",
+                                        "http://127.0.0.1:8088",
+                                        "http://127.0.0.1:4173")
                         .allowedMethods("GET", "POST")
                         .allowCredentials(true)
                         .maxAge(3600);

@@ -2,8 +2,8 @@ package com.petrichor.sincerity.controller;
 
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.petrichor.sincerity.api.CommonResult;
-import com.petrichor.sincerity.dto.LoginBody;
-import com.petrichor.sincerity.dto.LoginResult;
+import com.petrichor.sincerity.model.LoginBody;
+import com.petrichor.sincerity.model.LoginResult;
 import com.petrichor.sincerity.entity.SysPermission;
 import com.petrichor.sincerity.entity.SysUser;
 import com.petrichor.sincerity.service.LoginService;
@@ -45,7 +45,7 @@ public class LoginController {
     SysPermissionService sysPermissionService;
 
     //验证码
-    @GetMapping("/getCaptcha")
+    @GetMapping("getCaptcha")
     @NotNeedLogin
     public CommonResult<String> getCaptcha(@RequestParam String captchaKey) throws IOException {
         if (captchaKey == null || captchaKey.isEmpty()) return CommonResult.failed("未提供CaptchaKey");
@@ -99,7 +99,7 @@ public class LoginController {
     }
 
     public LoginResult getLoginResult(SysUser sysUser) {
-        List<SysPermission> userPermissions = sysUserService.getUserPermissions(sysUser.getId());
+        List<SysPermission> userPermissions = sysUserService.getUserPermissionsByUserId(sysUser.getId());
         LoginResult.UserInfo userInfo = modelMapper.map(sysUser, LoginResult.UserInfo.class);
         LoginResult loginResult = new LoginResult();
         loginResult.setUserInfo(userInfo);

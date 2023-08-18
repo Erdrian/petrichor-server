@@ -24,7 +24,7 @@ public class SecurityUtils {
      */
     public static void digestFile(String filename, String algorithm) {
         byte[] b = new byte[1024 * 4];
-        int len = 0;
+        int len;
         FileInputStream fis = null;
         FileOutputStream fos = null;
         try {

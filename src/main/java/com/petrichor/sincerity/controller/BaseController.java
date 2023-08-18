@@ -2,16 +2,12 @@ package com.petrichor.sincerity.controller;
 
 
 import com.github.pagehelper.PageHelper;
-import com.petrichor.sincerity.dto.LoginResult;
-import com.petrichor.sincerity.entity.SysUser;
+import com.petrichor.sincerity.model.LoginResult;
 import com.petrichor.sincerity.util.Convert;
-import com.petrichor.sincerity.util.LoggerUtils;
 import com.petrichor.sincerity.util.ServletUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-
-import java.util.List;
 
 public class BaseController {
     @Autowired
@@ -27,7 +23,6 @@ public class BaseController {
     public String getUserName() {
         return getLoginResult().getUserInfo().getUsername();
     }
-
 
 
     public LoginResult getLoginResult() {
