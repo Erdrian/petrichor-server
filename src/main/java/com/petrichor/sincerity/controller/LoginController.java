@@ -2,8 +2,8 @@ package com.petrichor.sincerity.controller;
 
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.petrichor.sincerity.api.CommonResult;
-import com.petrichor.sincerity.model.LoginBody;
-import com.petrichor.sincerity.model.LoginResult;
+import com.petrichor.sincerity.vo.LoginBody;
+import com.petrichor.sincerity.vo.LoginResult;
 import com.petrichor.sincerity.entity.SysPermission;
 import com.petrichor.sincerity.entity.SysUser;
 import com.petrichor.sincerity.service.LoginService;

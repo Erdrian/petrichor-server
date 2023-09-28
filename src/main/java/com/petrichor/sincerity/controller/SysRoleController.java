@@ -3,7 +3,7 @@ package com.petrichor.sincerity.controller;
 import com.petrichor.sincerity.annotation.NeedAuthority;
 import com.petrichor.sincerity.api.CommonPage;
 import com.petrichor.sincerity.api.CommonResult;
-import com.petrichor.sincerity.model.RoleLinkPermissionBody;
+import com.petrichor.sincerity.vo.RoleLinkPermissionBody;
 import com.petrichor.sincerity.entity.SysRole;
 import com.petrichor.sincerity.service.SysRoleService;
 import org.springframework.beans.factory.annotation.Autowired;

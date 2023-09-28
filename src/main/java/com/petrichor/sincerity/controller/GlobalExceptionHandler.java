@@ -19,7 +19,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(SQLException.class)
-    public CommonResult<String> sqlException(Exception e) {
+    public CommonResult<String> sqlException(SQLException e) {
         Logger logger = getLogger(e.getClass());
         logger.error(String.valueOf(e));
         return CommonResult.failed("数据库错误：" + getReason(e));

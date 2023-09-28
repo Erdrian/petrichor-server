@@ -2,7 +2,7 @@ package com.petrichor.sincerity.controller;
 
 
 import com.github.pagehelper.PageHelper;
-import com.petrichor.sincerity.model.LoginResult;
+import com.petrichor.sincerity.vo.LoginResult;
 import com.petrichor.sincerity.util.Convert;
 import com.petrichor.sincerity.util.ServletUtils;
 import jakarta.servlet.http.HttpServletRequest;

@@ -1,8 +1,8 @@
 package com.petrichor.sincerity.service;
 
 import com.petrichor.sincerity.annotation.SnowFlakeId;
-import com.petrichor.sincerity.model.SysUserList;
-import com.petrichor.sincerity.model.SysUserRole;
+import com.petrichor.sincerity.vo.SysUserList;
+import com.petrichor.sincerity.vo.SysUserRole;
 import com.petrichor.sincerity.entity.SysPermission;
 import com.petrichor.sincerity.entity.SysUser;
 import com.petrichor.sincerity.mapper.SysUserMapper;
@@ -39,10 +39,11 @@ public class SysUserService implements SysUserMapper {
 
     @SnowFlakeId
     @Override
-    public Long insertUser(SysUser sysUser) {
+    public int insertUser(SysUser sysUser) {
         sysUser.setPassword(SecurityUtils.digestPassword(sysUser.getPassword()));
+        int i = sysUserMapper.insertUser(sysUser);
         userLinkRoles(sysUser.getId(), sysUser.getRoleIds());
-        return sysUserMapper.insertUser(sysUser);
+        return i;
     }
 
     @Override

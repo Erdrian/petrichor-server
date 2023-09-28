@@ -3,8 +3,8 @@ package com.petrichor.sincerity.controller;
 import com.petrichor.sincerity.annotation.NeedAuthority;
 import com.petrichor.sincerity.api.CommonPage;
 import com.petrichor.sincerity.api.CommonResult;
-import com.petrichor.sincerity.model.SysUserList;
-import com.petrichor.sincerity.model.SysUserRole;
+import com.petrichor.sincerity.vo.SysUserList;
+import com.petrichor.sincerity.vo.SysUserRole;
 import com.petrichor.sincerity.entity.SysRole;
 import com.petrichor.sincerity.entity.SysUser;
 import com.petrichor.sincerity.service.SysRoleService;
@@ -41,9 +41,7 @@ public class SysUserController extends BaseController {
         }
         sysUser.setCreateBy(getUserName());
         sysUserService.insertUser(sysUser);
-        Long id = sysUser.getId();
-        sysUserService.userLinkRoles(id, sysUser.getRoleIds());
-        return CommonResult.success(id);
+        return CommonResult.success(sysUser.getId());
     }
 
     @PostMapping("delete/{id}")

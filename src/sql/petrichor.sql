@@ -68,7 +68,8 @@ CREATE TABLE `sys_role` (
 
 insert  into `sys_role`(`id`,`role_name`,`create_by`,`create_time`,`update_by`,`update_time`,`del_flag`) values 
 (475348849087483904,'管理员','admin','2023-08-04 17:06:37','admin','2023-08-04 17:06:54','0'),
-(477038674333143040,'新管理员','admin','2023-08-09 09:01:22',NULL,NULL,'0');
+(477038674333143040,'新管理员','admin','2023-08-09 09:01:22',NULL,NULL,'0'),
+(480049877246545920,'ces','admin','2023-08-17 16:26:49','admin','2023-08-17 16:26:51','2');
 
 /*Table structure for table `sys_role_permission` */
 

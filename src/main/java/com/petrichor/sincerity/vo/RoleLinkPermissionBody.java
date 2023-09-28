@@ -1,4 +1,4 @@
-package com.petrichor.sincerity.model;
+package com.petrichor.sincerity.vo;
 
 import lombok.Data;
 

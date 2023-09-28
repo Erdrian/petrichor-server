@@ -1,7 +1,7 @@
 package com.petrichor.sincerity.controller.interceptor;
 
 import com.petrichor.sincerity.annotation.NeedAuthority;
-import com.petrichor.sincerity.model.LoginResult;
+import com.petrichor.sincerity.vo.LoginResult;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.core.annotation.Order;

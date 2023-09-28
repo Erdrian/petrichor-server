@@ -55,5 +55,3 @@ logging:
     console: "%d{yyyy-MM-dd HH:mm:ss} %clr(%-5level) [%thread] %logger{15} - %msg%n"
     file: "%d{yyyy-MM-dd HH:mm:ss} %-5level [%thread] %logger{15} - %msg%n"
 
-
-
