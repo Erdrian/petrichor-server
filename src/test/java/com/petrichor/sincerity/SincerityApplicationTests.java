@@ -1,5 +1,6 @@
 package com.petrichor.sincerity;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.junit.jupiter.api.Test;
@@ -24,7 +25,7 @@ class SincerityApplicationTests {
 
     @Test
     void contextLoads() throws NullPointerException {
-        System.out.println(this.getClass().getResource("").getPath());
+        System.out.println(DigestUtils.md5Hex("123456"));
     }
 
     @Test

@@ -16,4 +16,5 @@ public class SysUserList extends BaseEntity {
     private String phone;
     private String avatar;
     private List<SysRole> roles;
+    private Boolean isSuccess;
 }
